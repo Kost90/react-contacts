@@ -1,21 +1,24 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Contactspage from "./components/Contactspage";
-import Formpage from "./components/Formpage";
-import Contactsrow from "./ui/Contactsrow";
-import Contactsdata from "./components/Contactsdata";
+import Contactspage from "./pages/Contactspage";
+import {Formpage} from "./pages/Formpage";
+import Layout from "./components/Layout";
+import { ContactcontextProvider } from "./context/Contactcontext";
+
 
 function App() {
 
   return (
-<BrowserRouter>
-<Routes>
-      <Route path="/" element={<Contactspage/>}>
-      {/* <Route path="/" element={<Contactsdata/>}/> */}
-      <Route path="/form" element={<Formpage/>}/>
-      </Route>
-    </Routes>
-    </BrowserRouter>
+    <ContactcontextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout/>}>
+            <Route path="contacts" element={<Contactspage/>}/>
+            <Route path="addnewcontact" element={<Formpage/>}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ContactcontextProvider>
 
   );
 }

@@ -1,19 +1,24 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+
+import React, { useContext } from 'react'
+import { ContactContext } from "../context/Contactcontext"
 
 
-function Contactsrow({name, phone}) {
+function Contactsrow() {
+
+  const {contacts, deleteContact} = useContext(ContactContext);
+
 
   return (
     <>
-        <tr>
-        <td>{name}</td>
-        <td>{phone}</td>
-        <td><button>Delete contact</button></td>
+    {contacts.map(contact => (
+        <tr key={contact.id}>
+        <td>{contact.name}</td>
+        <td>{contact.phone}</td>
+        <td><button onClick={deleteContact}>Delete contact</button></td>
         </tr>
+    ))}
     </>
  
-
   )
 }
 
