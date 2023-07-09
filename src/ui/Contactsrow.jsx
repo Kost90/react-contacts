@@ -1,24 +1,34 @@
 
-import React, { useContext } from 'react'
+import React, { memo, useContext } from 'react'
 import { ContactContext } from "../context/Contactcontext"
+
+
+const Contact = memo (({name, phone, id, removeContact}) => {
+  return(
+    <tr>
+      <td>{name}</td>
+      <td>{phone}</td>
+      <button onClick={() => removeContact(id)}>Delete contact</button>
+    </tr>
+  )
+});
 
 
 function Contactsrow() {
 
-  const {contacts, deleteContact} = useContext(ContactContext);
+  const {contacts, removeContact} = useContext(ContactContext);
 
 
   return (
     <>
     {contacts.map(contact => (
-        <tr key={contact.id}>
-        <td>{contact.name}</td>
-        <td>{contact.phone}</td>
-        <td><button onClick={deleteContact}>Delete contact</button></td>
-        </tr>
+        <Contact
+        {...contact}
+        removeContact={removeContact}
+        key={contact.id}
+        />
     ))}
     </>
- 
   )
 }
 

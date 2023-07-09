@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { getContacts, setContact } from "../api/Contactsapi" 
+import { getContacts, addContact, deleteContact } from "../api/Contactsapi" 
 
 
 export const ContactContext = createContext()
@@ -10,19 +10,36 @@ export const  ContactcontextProvider = ({children}) => {
 
 const [contacts, setContacts] = useState(contactData)
 
-const postContact = (contact) =>{
-    setContacts(prev => [...prev, contact])
+console.log(contacts)
 
-    setContact(contacts);
+const postContact = (contact) =>{
+  addContact(contact)
+  .then((resp) =>{
+    if(resp.ok){
+      console.log(resp)
+      return resp.json();
+    }
+  })
+  .then ((data) =>{
+  setContacts((prev) => [...prev, contact]);
+  })
 }
 
-const deleteContact = (id) =>{
-    setContacts(prev => prev.filter(contact => contact.id !== id))
-    deleteContact(id);
+const removeContact = (id) =>{
+    deleteContact(id)
+    .then((resp) =>{
+      if(resp.ok){
+        console.log(resp)
+        return resp.json();
+      }
+    })
+    .then((data) =>{
+      setContacts(prev => prev.filter(contact => contact.id !== id))
+    })
 }
 
   return (
-    <ContactContext.Provider value={{ contacts, postContact, deleteContact }}>
+    <ContactContext.Provider value={{ contacts, postContact, removeContact }}>
       {children}  
     </ContactContext.Provider>
   )

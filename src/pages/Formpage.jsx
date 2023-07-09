@@ -4,11 +4,10 @@ import {Link} from 'react-router-dom';
 import { useForm } from "react-hook-form"
 import { ContactContext } from '../context/Contactcontext';
 
-
-
 export const Formpage = () => {
 
   const {postContact} = useContext(ContactContext)
+  
   const {
     register,
     handleSubmit,

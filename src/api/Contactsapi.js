@@ -7,17 +7,19 @@ export const getContacts = async () => {
     return await response.json()
   }
 
-  export const setContact = (contact) =>{
-    fetch(url, {
+  export const addContact = async (contact) =>{
+    const response = await fetch(url, {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(contact)
         })
+        return await response.json()
   }
 
-  export const deleteContact = (id) =>{
-    fetch(url`${id}`, {
+  export const deleteContact = async (id) =>{
+    const respone = await fetch(`${url}/${id}`, {
             method: 'DELETE',
         })
+        return await respone.json()
   }
 
